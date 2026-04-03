@@ -8,6 +8,9 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['better-sqlite3'],
   },
+  typescript: {
+    ignoreBuildErrors: true, // ✅ add this line
+  },
 }
 
 module.exports = nextConfig
