@@ -1,12 +1,12 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import { Order } from '@/types'
 
-export default function ConfirmationPage() {
+function ConfirmationContent() {
   const searchParams = useSearchParams()
   const orderNumber = searchParams.get('order')
   const [order, setOrder] = useState<Order | null>(null)
@@ -141,5 +141,20 @@ export default function ConfirmationPage() {
       </main>
       <Footer />
     </>
+  )
+}
+
+export default function ConfirmationPage() {
+  return (
+    <Suspense fallback={
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      </>
+    }>
+      <ConfirmationContent />
+    </Suspense>
   )
 }
