@@ -201,7 +201,7 @@ function seedSampleData(database: Database.Database) {
     VALUES (@id, @name, @slug, @description, @short_description, @price, @original_price, @category, @tags, @image_url, @preview_images, @featured, @is_bestseller, @is_new, @rating, @review_count, @max_downloads)
   `)
 
-  const insertMany = database.transaction((products: typeof products) => {
+  const insertMany = database.transaction((products: any[]) => {
     for (const p of products) insert.run(p)
   })
 
