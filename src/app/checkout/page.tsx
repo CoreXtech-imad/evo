@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Navbar from '@/components/layout/Navbar'
@@ -17,7 +17,7 @@ const ALGERIEN_WILAYAS = [
   'Ghardaïa','Relizane','International'
 ]
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const productId = searchParams.get('product')
@@ -382,5 +382,20 @@ export default function CheckoutPage() {
       </main>
       <Footer />
     </>
+  )
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      </>
+    }>
+      <CheckoutContent />
+    </Suspense>
   )
 }
